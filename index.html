@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zenith · Ambient Weather Intelligence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="sky-backdrop"></div>
+  
+  <header class="navbar">
+    <div class="brand">
+      <span class="icon">✨</span>
+      <span class="name">ZENITH</span>
+      <span class="pill">Atmosphere v1.4</span>
+    </div>
+    <div class="search-box">
+      <input type="text" id="city-search" placeholder="Search city (e.g. Mumbai, Tokyo, London)..." value="Mumbai">
+      <button id="search-btn">Search</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="current-weather-card">
+      <div class="card-left">
+        <div class="location-badge">
+          <span class="pin">📍</span>
+          <span id="city-name">Mumbai, India</span>
+          <span class="time" id="local-time">21:26 IST</span>
+        </div>
+        <div class="temp-row">
+          <span class="big-temp" id="temp-display">29°</span>
+          <div class="temp-meta">
+            <span class="condition-badge" id="condition-text">Clear Night</span>
+            <span class="feels-like">Feels like <b id="feels-display">32°</b></span>
+          </div>
+        </div>
+      </div>
+      <div class="card-right">
+        <div class="weather-art" id="weather-art">🌙</div>
+      </div>
+    </section>
+
+    <section class="metrics-grid">
+      <div class="metric-item">
+        <span class="m-icon">💧</span>
+        <div>
+          <span class="m-label">Humidity</span>
+          <span class="m-val" id="humidity-val">68%</span>
+        </div>
+      </div>
+      <div class="metric-item">
+        <span class="m-icon">💨</span>
+        <div>
+          <span class="m-label">Wind Speed</span>
+          <span class="m-val" id="wind-val">14 km/h</span>
+        </div>
+      </div>
+      <div class="metric-item">
+        <span class="m-icon">🍃</span>
+        <div>
+          <span class="m-label">Air Quality Index</span>
+          <span class="m-val aqi-good" id="aqi-val">48 · Good</span>
+        </div>
+      </div>
+      <div class="metric-item">
+        <span class="m-icon">👁️</span>
+        <div>
+          <span class="m-label">Visibility</span>
+          <span class="m-val" id="vis-val">8.5 km</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="forecast-section">
+      <h3 class="section-title">5-Day Outlook</h3>
+      <div class="forecast-cards" id="forecast-cards">
+        <!-- Rendered via JS -->
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Zenith Weather Engine · Built by <a href="https://github.com/rushank3485" target="_blank">Rushank</a> · Open Source MIT</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
