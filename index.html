@@ -2,90 +2,246 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Zenith · Ambient Weather Intelligence</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Time Capsule Weather · Historical Atmosphere & Almanac</title>
+  <meta name="description" content="Pick any date from 1940 to recent history and unlock what the weather was like that day, historical events, and create shareable memory cards.">
+  
+  <!-- Open Graph / Facebook / Twitter -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://time-capsule-weather.vercel.app/">
+  <meta property="og:title" content="Time Capsule Weather · Weather Through History">
+  <meta property="og:description" content="Discover the exact weather on the day you were born or any date since 1940, with historical events & shareable retro cards.">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1534088568595-a066f410bcda?w=1200&h=630&fit=crop">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Time Capsule Weather">
+  <meta name="twitter:description" content="What was the weather like on the day you were born? Explore historical weather from 1940 to today.">
+
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220%22%3E<text y=%2226%22 font-size=%2224%22>⏳</text></svg>">
+  
+  <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <div class="sky-backdrop"></div>
-  
+  <div class="vintage-grain"></div>
+
+  <!-- Navbar -->
   <header class="navbar">
     <div class="brand">
-      <span class="icon">✨</span>
-      <span class="name">ZENITH</span>
-      <span class="pill">Atmosphere v1.4</span>
+      <span class="icon">⏳</span>
+      <span class="name">TIME CAPSULE</span>
+      <span class="pill">Weather Archive</span>
     </div>
-    <div class="search-box">
-      <input type="text" id="city-search" placeholder="Search city (e.g. Mumbai, Tokyo, London)..." value="Mumbai">
-      <button id="search-btn">Search</button>
+
+    <div class="nav-controls">
+      <button id="birthday-toggle" class="nav-btn mode-btn" title="Toggle Birthday Mode">
+        <span class="btn-icon">🎂</span>
+        <span class="btn-text">Birthday Mode</span>
+      </button>
+      <button id="unit-toggle" class="nav-btn unit-btn" title="Toggle °C / °F">
+        <span id="unit-label">°C</span>
+      </button>
     </div>
   </header>
 
+  <!-- Main Container -->
   <main class="container">
-    <section class="current-weather-card">
-      <div class="card-left">
-        <div class="location-badge">
-          <span class="pin">📍</span>
-          <span id="city-name">Mumbai, India</span>
-          <span class="time" id="local-time">21:26 IST</span>
-        </div>
-        <div class="temp-row">
-          <span class="big-temp" id="temp-display">29°</span>
-          <div class="temp-meta">
-            <span class="condition-badge" id="condition-text">Clear Night</span>
-            <span class="feels-like">Feels like <b id="feels-display">32°</b></span>
+    
+    <!-- Hero / Time Controls -->
+    <section class="capsule-controls-card">
+      <div class="control-header">
+        <h1 class="headline" id="main-headline">The Weather on Any Day in History</h1>
+        <p class="subheadline" id="sub-headline">Select any city and date from 1940 onwards to unlock climate records and historical headlines.</p>
+      </div>
+
+      <div class="inputs-bar">
+        <!-- City Autocomplete -->
+        <div class="input-group city-group">
+          <label for="city-input">Location</label>
+          <div class="autocomplete-wrapper">
+            <span class="input-icon">📍</span>
+            <input type="text" id="city-input" placeholder="Search any city..." value="Mumbai, India" autocomplete="off">
+            <div id="city-suggestions" class="suggestions-dropdown hidden"></div>
           </div>
         </div>
-      </div>
-      <div class="card-right">
-        <div class="weather-art" id="weather-art">🌙</div>
-      </div>
-    </section>
 
-    <section class="metrics-grid">
-      <div class="metric-item">
-        <span class="m-icon">💧</span>
-        <div>
-          <span class="m-label">Humidity</span>
-          <span class="m-val" id="humidity-val">68%</span>
+        <!-- Date Picker -->
+        <div class="input-group date-group">
+          <label for="date-input" id="date-label">Capsule Date</label>
+          <div class="date-wrapper">
+            <span class="input-icon">📅</span>
+            <input type="date" id="date-input" min="1940-01-01" value="2000-01-01">
+          </div>
         </div>
-      </div>
-      <div class="metric-item">
-        <span class="m-icon">💨</span>
-        <div>
-          <span class="m-label">Wind Speed</span>
-          <span class="m-val" id="wind-val">14 km/h</span>
-        </div>
-      </div>
-      <div class="metric-item">
-        <span class="m-icon">🍃</span>
-        <div>
-          <span class="m-label">Air Quality Index</span>
-          <span class="m-val aqi-good" id="aqi-val">48 · Good</span>
-        </div>
-      </div>
-      <div class="metric-item">
-        <span class="m-icon">👁️</span>
-        <div>
-          <span class="m-label">Visibility</span>
-          <span class="m-val" id="vis-val">8.5 km</span>
+
+        <!-- Action Buttons -->
+        <div class="buttons-group">
+          <button id="search-btn" class="primary-btn">
+            <span>Open Capsule</span>
+          </button>
+          <button id="surprise-btn" class="surprise-btn" title="Pick a random historic date & city">
+            <span>✨ Surprise Me</span>
+          </button>
         </div>
       </div>
     </section>
 
-    <section class="forecast-section">
-      <h3 class="section-title">5-Day Outlook</h3>
-      <div class="forecast-cards" id="forecast-cards">
-        <!-- Rendered via JS -->
-      </div>
-    </section>
+    <!-- Loading Skeleton -->
+    <div id="loading-state" class="loading-state hidden">
+      <div class="spinner"></div>
+      <p>Consulting historical meteorological archives...</p>
+    </div>
+
+    <!-- Error State -->
+    <div id="error-state" class="error-banner hidden">
+      <span class="err-icon">⚠️</span>
+      <span id="error-message">Could not retrieve records for this selection.</span>
+    </div>
+
+    <!-- Weather Results View -->
+    <div id="capsule-content" class="capsule-content">
+      
+      <!-- Primary Weather Card -->
+      <section class="current-weather-card">
+        <div class="card-left">
+          <div class="location-badge">
+            <span class="pin">🏛️</span>
+            <span id="display-city">Mumbai, Maharashtra, India</span>
+            <span class="time-badge" id="display-date">January 1, 2000</span>
+          </div>
+
+          <div class="temp-row">
+            <span class="big-temp" id="temp-display">25.0°</span>
+            <div class="temp-meta">
+              <span class="condition-badge" id="condition-text">Clear Sky</span>
+              <div class="high-low-row">
+                <span class="range-hi">High: <b id="hi-temp">30.9°</b></span>
+                <span class="range-sep">·</span>
+                <span class="range-lo">Low: <b id="lo-temp">18.3°</b></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Comparison Baseline -->
+          <div class="comparison-banner" id="comparison-banner">
+            <span class="comp-icon">📈</span>
+            <span id="comparison-text">Evaluating historical temperature trend against modern baseline...</span>
+          </div>
+        </div>
+
+        <div class="card-right">
+          <div class="weather-art" id="weather-art">☀️</div>
+          <button id="open-share-modal" class="share-card-trigger">
+            <span>🖼️ Generate Share Card</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Atmospheric Metrics Grid -->
+      <section class="metrics-grid">
+        <div class="metric-item">
+          <span class="m-icon">🌧️</span>
+          <div>
+            <span class="m-label">Precipitation</span>
+            <span class="m-val" id="precip-val">0.0 mm</span>
+          </div>
+        </div>
+        <div class="metric-item">
+          <span class="m-icon">💨</span>
+          <div>
+            <span class="m-label">Max Wind</span>
+            <span class="m-val" id="wind-val">12.7 km/h</span>
+          </div>
+        </div>
+        <div class="metric-item">
+          <span class="m-icon">🌅</span>
+          <div>
+            <span class="m-label">Sunrise / Sunset</span>
+            <span class="m-val" id="sun-val">07:11 · 18:11</span>
+          </div>
+        </div>
+        <div class="metric-item">
+          <span class="m-icon">⏳</span>
+          <div>
+            <span class="m-label">Day Length</span>
+            <span class="m-val" id="daylight-val">11h 00m</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- History Panel: "Also on this day" -->
+      <section class="history-panel" id="history-panel">
+        <div class="panel-header">
+          <span class="panel-tag">HISTORICAL ARCHIVES</span>
+          <h2>Also on this day in history (<span id="history-date-heading">January 1</span>)</h2>
+        </div>
+
+        <div class="history-grid">
+          <!-- Notable Events -->
+          <div class="history-column">
+            <h3>📜 Major Historical Events</h3>
+            <div class="events-list" id="events-list">
+              <!-- Injected by JS -->
+            </div>
+          </div>
+
+          <!-- Notable Births -->
+          <div class="history-column">
+            <h3>🎂 Born on this Day</h3>
+            <div class="births-list" id="births-list">
+              <!-- Injected by JS -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
   </main>
 
+  <!-- Share Card Modal -->
+  <div id="share-modal" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>Create Your Time Capsule Card</h3>
+        <button id="close-modal" class="close-btn" aria-label="Close">✕</button>
+      </div>
+
+      <div class="theme-picker">
+        <label>Theme:</label>
+        <div class="theme-buttons">
+          <button class="theme-btn active" data-theme="vintage">📜 Vintage Paper</button>
+          <button class="theme-btn" data-theme="dark">🌌 Midnight Obsidian</button>
+          <button class="theme-btn" data-theme="amber">🌅 Golden Dusk</button>
+        </div>
+      </div>
+
+      <div class="canvas-preview-container">
+        <canvas id="share-canvas" width="1080" height="1350"></canvas>
+      </div>
+
+      <div class="modal-actions">
+        <button id="download-card-btn" class="modal-btn primary">
+          <span>⬇️ Download High-Res PNG (1080x1350)</span>
+        </button>
+        <button id="native-share-btn" class="modal-btn secondary">
+          <span>📤 Share Card</span>
+        </button>
+        <button id="copy-link-btn" class="modal-btn ghost">
+          <span>🔗 Copy Link</span>
+        </button>
+      </div>
+      <div id="toast-msg" class="toast-msg hidden">Link copied to clipboard!</div>
+    </div>
+  </div>
+
+  <!-- Footer -->
   <footer class="footer">
-    <p>Zenith Weather Engine · Built by <a href="https://github.com/rushank3485" target="_blank">Rushank</a> · Open Source MIT</p>
+    <p>Time Capsule Weather · Built by <a href="https://github.com/rushank3485" target="_blank">Rushank</a> · Meteorological data via <a href="https://open-meteo.com/" target="_blank">Open-Meteo</a> · History via <a href="https://wikimedia.org/" target="_blank">Wikimedia</a></p>
   </footer>
 
   <script src="app.js"></script>

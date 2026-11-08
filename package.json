@@ -1,0 +1,19 @@
+{
+  "name": "time-capsule-weather",
+  "version": "1.0.0",
+  "description": "Historical weather almanac and time capsule from 1940 to recent history",
+  "private": true,
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "keywords": [
+    "weather",
+    "time-capsule",
+    "historical-weather",
+    "open-meteo",
+    "wikimedia",
+    "almanac"
+  ],
+  "author": "Rushank",
+  "license": "MIT"
+}
