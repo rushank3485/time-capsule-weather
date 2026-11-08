@@ -19,7 +19,7 @@
 
 ## 🚀 Live Demo
 
-- **Live Web App:** [https://zenith-weather-rushank.vercel.app](https://zenith-weather-rushank.vercel.app)
+- **Live Web App:** [https://zenith-weather.vercel.app](https://zenith-weather.vercel.app)
 
 ---
 
