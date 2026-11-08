@@ -67,9 +67,9 @@ Or connect the repository on the [Vercel Dashboard](https://vercel.com/new). Eve
 
 ## 📸 Screenshots
 
-| Historical Weather View | 1080x1350 Canvas Share Card |
-| :---: | :---: |
-| *(Weather & Historical Almanac interface)* | *(Vintage Paper & Midnight Obsidian Card Themes)* |
+<p align="center">
+  <img src="assets/preview.svg" alt="Time Capsule Weather and Shareable Card Preview" width="100%" />
+</p>
 
 ---
 
@@ -82,4 +82,4 @@ Or connect the repository on the [Vercel Dashboard](https://vercel.com/new). Eve
 
 ## 📄 License
 
-MIT © [Rushank](https://github.com/rushank3485)
+Licensed under the standard open-source [MIT License](LICENSE) · Created by [Rushank](https://github.com/rushank3485)
